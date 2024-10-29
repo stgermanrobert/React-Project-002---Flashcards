@@ -44,26 +44,23 @@ const questions = [
 ];
 
 function Flashcards() {
-  const [selectedId, setSelectedId] = useState(2002);
+  const [selectedId, setSelectedId] = useState(null);
 
   function handleClick(id) {
-    // if the selected id is the same as the one that cames from the click, we go back to null
-    setSelectedId(id === selectedId ? null : id);
+    setSelectedId(id !== selectedId ? id : null);
   }
 
   return (
     <div className="flashcards">
-      {/*map through the questions list to render all the questions as cards*/}
       {questions.map((question) => (
         <div
           key={question.id}
-          // Only apply "selected" className when question.id coincides with selectedId
-          className={question.id === selectedId ? "selected" : ""}
-          // pass the handleClick function to onClick function.
           onClick={() => handleClick(question.id)}
+          className={question.id === selectedId ? "selected" : ""}
         >
-          {/*if the selectId is the same as the question.id, we render the answer*/}
-          {selectedId === question.id ? question.answer : question.question}
+          <p>
+            {question.id === selectedId ? question.answer : question.question}
+          </p>
         </div>
       ))}
     </div>
